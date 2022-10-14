@@ -1,0 +1,40 @@
+users:
+    Eric:
+        Owe:
+            Mark: 130 dildo
+            Andrew: 130 dildo
+            Jon: 130 dildo
+        Owed:
+            Mark: 130 dildo
+            Andrew: 130 dildo
+            Jon: 130 dildo
+
+    Mark:
+        Owe:
+            Eric: 130 dildo
+            Andrew: 130 dildo
+            Jon: 130 dildo
+        Owed:
+            Eric: 130 dildo
+            Andrew: 130 dildo
+            Jon: 130 dildo
+
+    Andrew:
+        Owe:
+            Mark: 130 dildo
+            Eric: 130 dildo
+            Jon: 130 dildo
+        Owed:
+            Mark: 130 dildo
+            Eric: 130 dildo
+            Jon: 130 dildo
+
+    Jon:
+        Owe:
+            Mark: 130 dildo
+            Andrew: 130 dildo
+            Eric: 130 dildo
+        Owed:
+            Mark: 130 dildo
+            Andrew: 130 dildo
+            Eric: 130 dildo

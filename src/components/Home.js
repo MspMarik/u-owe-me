@@ -10,7 +10,10 @@ import { Navigate } from "react-router-dom";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+// import yamlConvert from "../yaml-convert";
 import logo from "../logo.svg";
+import yaml from "js-yaml";
+import yamlFile from "../charges.yaml";
 import "../App.css";
 const Home = (props) => {
     const [loading, setLoading] = useState(true);
@@ -20,12 +23,23 @@ const Home = (props) => {
     let navigate = useNavigate();
     let card = null;
     let userBlock = null;
+    let owingBlock = null;
+    // let yamlJSON = yamlConvert.get();
 
     useEffect(() => {
         setLoading(true);
         // if (!currentUser) {
         //     navigate("/login");
         // }
+        console.log(yamlFile);
+        fetch(yamlFile)
+            .then((r) => r.text())
+            .then((text) => {
+                let jsonedYaml = yaml.load(text);
+                console.log(currentUser);
+                console.log(jsonedYaml);
+                setContent(jsonedYaml);
+            });
         setLoading(false);
     }, []);
 
@@ -37,18 +51,20 @@ const Home = (props) => {
         } else {
             event.preventDefault();
             event.stopPropagation();
-            setValidated(true);
-            let username = form.elements.loginUser.value;
-            // let password = form.elements.loginPass.value;
-            // try {
-            //     await doSignInWithEmailAndPassword(username, password);
-            // } catch (error) {
-            //     alert(error);
-            // }
-            setCurrentUser(username);
-            // return <Navigate to="/" />;
-            // navigate("/");
-            // return <Home user={username} />;
+
+            let username = "";
+            for (let i = 0; i < form.elements.loginUser.value.length; i++) {
+                if (i == 0) {
+                    username += form.elements.loginUser.value.charAt(0).toUpperCase();
+                } else {
+                    username += form.elements.loginUser.value.charAt(i).toLowerCase();
+                }
+            }
+            if (username == "Mark" || username == "Andrew" || username == "Eric" || username == "Jon") {
+                setValidated(true);
+                setCurrentUser(username);
+            }
+            setValidated(false);
         }
     }
 
@@ -69,6 +85,30 @@ const Home = (props) => {
                         <Button variant="primary" onClick={() => setCurrentUser(undefined)} className="save-button">
                             Logout
                         </Button>
+                    </Card.Body>
+                </Card>
+            );
+            let owe = content.users[currentUser].Owe;
+            let owed = content.users[currentUser].Owed;
+            let oweBlock = "";
+            let owedBlock = "";
+            for (const [key, value] of Object.entries(owe)) {
+                oweBlock += key + ": " + value + ", ";
+            }
+            for (const [key, value] of Object.entries(owed)) {
+                owedBlock += key + ": " + value + ", ";
+            }
+            owingBlock = (
+                <Card className="card-shadow">
+                    <Card.Body>
+                        <ListGroup variant="flush" className="float-center">
+                            <Card.Title id="name">Owe</Card.Title>
+                            {oweBlock}
+                        </ListGroup>
+                        <ListGroup variant="flush" className="float-center">
+                            <Card.Title id="name">Owed</Card.Title>
+                            {owedBlock}
+                        </ListGroup>
                     </Card.Body>
                 </Card>
             );
@@ -94,31 +134,7 @@ const Home = (props) => {
             <div className="container align-self-center card-container">
                 {userBlock}
                 <br />
-                <Card className="card-shadow">
-                    <Card.Img variant="top" src={logo} />
-                    <Card.Body>
-                        <Card.Title id="name">{content && content.name}</Card.Title>
-                        <ListGroup variant="flush" className="float-center">
-                            <ListGroup.Item>
-                                <Card.Text>
-                                    <div className="d-flex justify-content-between">
-                                        <Card.Text id="age">{content && content.age}</Card.Text>
-                                        <Card.Text id="gender">{content && content.gender}</Card.Text>
-                                    </div>
-                                </Card.Text>
-                                <Card.Text id="bio">{content && content.bio}</Card.Text>
-                            </ListGroup.Item>
-                            <ListGroup.Item id="ld-likes">
-                                <Card.Text className="fw-bold">Likes</Card.Text>
-                                {content && content.likes}
-                            </ListGroup.Item>
-                            <ListGroup.Item id="ld-likes">
-                                <Card.Text className="fw-bold">Dislikes</Card.Text>
-                                {content && content.dlikes}
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card.Body>
-                </Card>
+                {owingBlock}
             </div>
         );
     }
