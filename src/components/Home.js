@@ -90,24 +90,31 @@ const Home = (props) => {
             );
             let owe = content.users[currentUser].Owe;
             let owed = content.users[currentUser].Owed;
-            let oweBlock = "";
-            let owedBlock = "";
-            for (const [key, value] of Object.entries(owe)) {
-                oweBlock += key + ": " + value + ", ";
-            }
-            for (const [key, value] of Object.entries(owed)) {
-                owedBlock += key + ": " + value + ", ";
-            }
+            let oweBlock;
+            let owedBlock;
+
+            const buildCard = (arr) => {
+                return <li>{arr[0] + ": " + "$" + arr[1]}</li>;
+            };
+
+            // [key, value]
+            oweBlock = Object.entries(owe).map((arr) => {
+                return buildCard(arr);
+            });
+            owedBlock = Object.entries(owed).map((arr) => {
+                return buildCard(arr);
+            });
             owingBlock = (
                 <Card className="card-shadow">
                     <Card.Body>
                         <ListGroup variant="flush" className="float-center">
                             <Card.Title id="name">Owe</Card.Title>
-                            {oweBlock}
+                            <ul>{oweBlock}</ul>
                         </ListGroup>
+                        <hr />
                         <ListGroup variant="flush" className="float-center">
                             <Card.Title id="name">Owed</Card.Title>
-                            {owedBlock}
+                            <ul>{owedBlock}</ul>
                         </ListGroup>
                     </Card.Body>
                 </Card>
