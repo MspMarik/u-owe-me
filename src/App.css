@@ -1,38 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+
 .App {
-  text-align: center;
+    text-align: center;
+    min-width: 200px;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+
+    /* .App-header-text {
+        animation: App-logo-spin infinite 20s linear;
+    } */
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    /* min-height: 250px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.App-header-text {
+    font: calc(30px + 2em) "Silkscreen";
+    font-weight: bold;
+
+    /* Warning: no fallback */
+    background-size: 300% auto;
+    background-image: linear-gradient(-45deg, #00feff, #0001ff, #ff0092, #0001ff, #00feff);
+    background-clip: text;
+    -webkit-text-stroke: 10px transparent;
+    animation: AnimateBG infinite 7s ease;
+    color: white; /* same as background */
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate3d(0);
+    }
+    to {
+        transform: rotate3d(0, 1, 0, 720deg);
+    }
+}
+
+@keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 500%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
