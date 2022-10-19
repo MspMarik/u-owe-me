@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logo.png";
 import "./App.css";
 import Home from "./components/Home";
 // import Login from "./components/Login";
@@ -11,10 +11,9 @@ function App() {
         <Router>
             <div className="App">
                 <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1>U Owe Me</h1>
+                    {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                    <h1 className="App-header-text">U Owe Me</h1>
                 </header>
-                <br />
                 <br />
                 <div className="App-Body">
                     <Routes>
