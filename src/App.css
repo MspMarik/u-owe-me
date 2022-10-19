@@ -42,7 +42,7 @@
     background-image: linear-gradient(-45deg, #00feff, #0001ff, #ff0092, #0001ff, #00feff);
     background-clip: text;
     -webkit-text-stroke: 10px transparent;
-    animation: AnimateBG infinite 10s ease;
+    animation: AnimateBG infinite 7s ease;
     color: white; /* same as background */
 }
 
