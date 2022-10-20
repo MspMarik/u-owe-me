@@ -50,6 +50,12 @@
     color: #61dafb;
 }
 
+.App-Body {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate3d(0);
@@ -69,4 +75,10 @@
     100% {
         background-position: 0% 50%;
     }
+}
+
+.tbl {
+    max-width: auto;
+    margin-left: auto;
+    margin-right: auto;
 }

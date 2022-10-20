@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
+import Table from "react-bootstrap/Table";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { Navigate } from "react-router-dom";
@@ -94,7 +95,13 @@ const Home = (props) => {
             let owedBlock;
 
             const buildCard = (arr) => {
-                return <li>{arr[0] + ": " + "$" + arr[1]}</li>;
+                return (
+                    <tr>
+                        <td>{arr[0]}</td>
+                        <td>{arr[1]}</td>
+                    </tr>
+                );
+                // return <li>{arr[0] + ": " + "$" + arr[1]}</li>;
             };
 
             // [key, value]
@@ -109,12 +116,16 @@ const Home = (props) => {
                     <Card.Body>
                         <ListGroup variant="flush" className="float-center">
                             <Card.Title id="name">Owe</Card.Title>
-                            <ul>{oweBlock}</ul>
+                            <Table striped bordered hover className="tbl">
+                                <tbody>{oweBlock}</tbody>
+                            </Table>
                         </ListGroup>
                         <hr />
                         <ListGroup variant="flush" className="float-center">
                             <Card.Title id="name">Owed</Card.Title>
-                            <ul>{owedBlock}</ul>
+                            <Table striped bordered hover className="tbl">
+                                <tbody>{oweBlock}</tbody>
+                            </Table>
                         </ListGroup>
                     </Card.Body>
                 </Card>
