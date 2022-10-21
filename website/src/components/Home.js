@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 // import yamlConvert from "../yaml-convert";
 import logo from "../logo.svg";
 import yaml from "js-yaml";
-import yamlFile from "../../../discord/charges.yaml";
+import yamlFile from "../charges.yaml";
 import "../App.css";
 
 const Home = (props) => {
