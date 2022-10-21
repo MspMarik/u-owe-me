@@ -1,7 +1,9 @@
 import yaml
 import ha_webhooks
 
-with open('PATH_TO_YAML') as f:
+PATH_TO_YAML = ''
+
+with open(PATH_TO_YAML) as f:
     data = yaml.load(f, Loader=yaml.FullLoader)
     # print(str(data) + "\n\n\n")
 
@@ -55,7 +57,7 @@ def add_charge(user, subuser, amt, note):
             data["users"][user]['Owed'][i].extend(charge)
             # data["users"][subuser]['Owe'][user].extend(charge)
         ha_webhooks.add(i, amt, user, note)
-    with open('charges.yaml', 'w') as x:
+    with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
 
     return f'Charge for the amount of ${amt} for {note} added to {subuser}'
@@ -91,7 +93,7 @@ def remove_charge(user, subuser, note):
     #         dt.remove(elem)
     #         break
 
-    with open('charges.yaml', 'w') as x:
+    with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
 
     return f'Charge for the amount of ${amount} for {note} removed from {subuser}'
