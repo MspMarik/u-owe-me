@@ -16,6 +16,7 @@ import logo from "../logo.svg";
 import yaml from "js-yaml";
 import yamlFile from "../../../discord/charges.yaml";
 import "../App.css";
+
 const Home = (props) => {
     const [loading, setLoading] = useState(true);
     const [content, setContent] = useState(undefined);
