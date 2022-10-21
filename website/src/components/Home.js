@@ -99,7 +99,7 @@ const Home = (props) => {
                 return (
                     <tr>
                         <td>{arr[0]}</td>
-                        <td>{arr[1]}</td>
+                        <td>{arr[1] != "" ? "$" + arr[1] : ""}</td>
                     </tr>
                 );
                 // return <li>{arr[0] + ": " + "$" + arr[1]}</li>;

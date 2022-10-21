@@ -19,7 +19,11 @@ def handle_response(message, user) -> str:
     if p_message[0:3] == '!ac':
         words = p_message.split()
         name = words[1][0:1].upper() + words[1][1:].lower()
-        return settle.add_charge(u, name, words[2], words[3])
+        try:
+            amt = float(words[2])
+            return settle.add_charge(u, name, amt, words[3])
+        except:
+            return "Unable to add charge, amount is not a number"
 
     if p_message[0:3] == '!rc':
         words = p_message.split()

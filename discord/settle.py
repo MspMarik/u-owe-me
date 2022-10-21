@@ -35,7 +35,6 @@ def check_owed(user):
             for j in range(0, len(data["users"][user]['Owed'][i])):
                 price = data["users"][user]['Owed'][i][j].split()
                 total += float(price[0])
-    # return str(data["users"][user]['Owed']) + f"\nTotal Owed: ${total}"
     return msg + f"\n**Total Owed: ${round(total, 2)}**"
 
 
@@ -56,6 +55,7 @@ def add_charge(user, subuser, amt, note):
         else:
             data["users"][user]['Owed'][i].extend(charge)
             data["users"][i]['Owe'][user].extend(charge)
+            # data["users"][subuser]['Owe'][user].extend(charge)
         ha_webhooks.add(i, amt, user, note)
     with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
@@ -80,22 +80,17 @@ def remove_charge(user, subuser, note):
         i = 0
         x = 0
         elem1 = dt[i]
-        elem2 = rdt[i]
         while (i < len(dt)) and (note not in str(elem1)):
             i += 1
             elem1 = dt[i]
-        while (x < len(rdt)) and (note not in str(elem2)):
-            i += 1
-            elem2 = rdt[i]
 
         amount = float(dt[i].split()[0])
         dt.remove(elem1)
-        rdt.remove(elem2)
+        rdt.remove(elem1)
         ha_webhooks.delete(j, amount, user, note)
 
-
     with open(PATH_TO_YAML, 'w') as x:
-        dt = yaml.dump(data, x)
+        dta = yaml.dump(data, x)
 
     return f'Charge for the amount of ${amount} for {note} removed from {subuser}'
 
