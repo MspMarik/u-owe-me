@@ -55,6 +55,7 @@ def add_charge(user, subuser, amt, note):
             data["users"][i]['Owe'][user] = charge
         else:
             data["users"][user]['Owed'][i].extend(charge)
+            data["users"][i]['Owe'][user].extend(charge)
             # data["users"][subuser]['Owe'][user].extend(charge)
         ha_webhooks.add(i, amt, user, note)
     with open(PATH_TO_YAML, 'w') as x:
@@ -76,22 +77,22 @@ def remove_charge(user, subuser, note):
 
     for j in people:
         dt = data["users"][user]['Owed'][j]
+        rdt = data["users"][j]['Owe'][user]
         i = 0
-        elem = dt[i]
-        while (i < len(dt)) and (note not in str(elem)):
+        x = 0
+        elem1 = dt[i]
+        elem2 = rdt[i]
+        while (i < len(dt)) and (note not in str(elem1)):
             i += 1
-            elem = dt[i]
+            elem1 = dt[i]
+        while (x < len(rdt)) and (note not in str(elem2)):
+            i += 1
+            elem2 = rdt[i]
 
         amount = float(dt[i].split()[0])
-        dt.remove(elem)
+        dt.remove(elem1)
+        rdt.remove(elem2)
         ha_webhooks.delete(j, amount, user, note)
-    # for i in range(0, len(dt)):
-    #     print(i)
-    #     elem = dt[i]
-    #     if note in str(elem):
-    #         amt = float(dt[i].split()[0])
-    #         dt.remove(elem)
-    #         break
 
     with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
@@ -112,11 +113,3 @@ def notify():
                     ha_webhooks.remind(str(x), words[0], str(i), words[1])
 
 
-
-# print(check_charges('Eric'))
-# add_charge('Mark', 'Eric', 20, 'internet')
-# add_charge('Mark', 'Eric', 40, 'electricity')
-# print(check_owed('Mark'))
-# print(remove_charge('Mark', 'Eric', 40, 'electricity'))
-# print(check_owed('Mark'))
-# print(check_charges('Eric'))
