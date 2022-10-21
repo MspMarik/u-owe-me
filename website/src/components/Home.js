@@ -125,7 +125,7 @@ const Home = (props) => {
                         <ListGroup variant="flush" className="float-center">
                             <Card.Title id="name">Owed</Card.Title>
                             <Table striped bordered hover className="tbl">
-                                <tbody>{oweBlock}</tbody>
+                                <tbody>{owedBlock}</tbody>
                             </Table>
                         </ListGroup>
                     </Card.Body>
