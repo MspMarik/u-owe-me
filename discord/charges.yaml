@@ -1,0 +1,40 @@
+users:
+    Eric:
+        Owe:
+            Mark:
+            Andrew:
+            Jon:
+        Owed:
+            Mark:
+            Andrew:
+            Jon:
+
+    Mark:
+        Owe:
+            Eric:
+            Andrew:
+            Jon:
+        Owed:
+            Eric:
+            Andrew:
+            Jon:
+
+    Andrew:
+        Owe:
+            Mark:
+            Eric:
+            Jon:
+        Owed:
+            Mark:
+            Eric:
+            Jon:
+
+    Jon:
+        Owe:
+            Mark:
+            Andrew:
+            Eric:
+        Owed:
+            Mark:
+            Andrew:
+            Eric:
