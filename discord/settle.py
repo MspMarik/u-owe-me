@@ -20,7 +20,7 @@ def check_charges(user):
             for j in range(0, len(data["users"][user]['Owe'][i])):
                 price = data["users"][user]['Owe'][i][j].split()
                 total += float(price[0])
-    return msg + f"**\nTotal Charges: ${total}**"
+    return msg + f"**\nTotal Charges: ${round(total, 2)}**"
 
 
 def check_owed(user):
@@ -36,7 +36,7 @@ def check_owed(user):
                 price = data["users"][user]['Owed'][i][j].split()
                 total += float(price[0])
     # return str(data["users"][user]['Owed']) + f"\nTotal Owed: ${total}"
-    return msg + f"\n**Total Owed: ${total}**"
+    return msg + f"\n**Total Owed: ${round(total, 2)}**"
 
 
 def add_charge(user, subuser, amt, note):
@@ -56,7 +56,6 @@ def add_charge(user, subuser, amt, note):
         else:
             data["users"][user]['Owed'][i].extend(charge)
             data["users"][i]['Owe'][user].extend(charge)
-            # data["users"][subuser]['Owe'][user].extend(charge)
         ha_webhooks.add(i, amt, user, note)
     with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
@@ -94,6 +93,7 @@ def remove_charge(user, subuser, note):
         rdt.remove(elem2)
         ha_webhooks.delete(j, amount, user, note)
 
+
     with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
 
@@ -104,12 +104,10 @@ def notify():
     global data
     for x in data['users']:
         for i in data["users"][x]['Owe']:
-            # if (str(data["users"][x]['Owe'][i]) == "null") or (str(data["users"][x]['Owe'][i]) == "None"):
             if (str(data["users"][x]['Owe'][i]) == "null") or (str(data["users"][x]['Owe'][i]) == "None") or (str(data["users"][x]['Owe'][i]) == "[]"):
                 continue
             else:
                 for j in range(0, len(data["users"][x]['Owe'][i])):
                     words = str(data["users"][x]['Owe'][i][j]).split()
                     ha_webhooks.remind(str(x), words[0], str(i), words[1])
-
 
