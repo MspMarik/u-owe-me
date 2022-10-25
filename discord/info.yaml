@@ -1,0 +1,18 @@
+accounts:
+  accountant:
+    discord:
+      DISCORD_TOKEN
+
+
+contact:
+  discord:
+    USERS:
+        USERNAMES
+
+  ha_push:
+    USERS:
+        USERNAMES
+
+files:
+  charges_yaml:
+    CHARGES.YAML_PATH

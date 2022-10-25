@@ -1,16 +1,17 @@
 import settle
+import yaml
+
+info = 'LOGIN_YAML_INFO'
+
+with open(info) as f:
+    data = yaml.load(f, Loader=yaml.FullLoader)
 
 
 def handle_response(message, user) -> str:
     u = ''
-    if user == 'MARK_DISCORD_USERNAME':
-        u = 'Mark'
-    elif user == 'ERIC_DISCORD_USERNAME':
-        u = 'Eric'
-    elif user == 'JON_DISCORD_USERNAME':
-        u = 'Jon'
-    elif user == 'ANDREW_DISCORD_USERNAME':
-        u = 'Andrew'
+    for i in data['contact']['discord']:
+        if user == data['contact']['discord'][i]:
+            u = i
 
     p_message = message.lower()
     if p_message == '!hello':
@@ -19,7 +20,11 @@ def handle_response(message, user) -> str:
     if p_message[0:3] == '!ac':
         words = p_message.split()
         name = words[1][0:1].upper() + words[1][1:].lower()
-        return settle.add_charge(u, name, words[2], words[3])
+        try:
+            amt = float(words[2])
+            return settle.add_charge(u, name, amt, words[3])
+        except:
+            return "Unable to add charge, amount is not a number"
 
     if p_message[0:3] == '!rc':
         words = p_message.split()
@@ -37,6 +42,6 @@ def handle_response(message, user) -> str:
               'Check Charges: \"!cc\"\n' \
               'Check Owed Balances: \"!co\"\n' \
               'Add Charge to User: \"!ac <user> <amount> <note>\"\n' \
-              'Remove Charge from User: \"!rc <user> <amount> <note>\"`'
+              'Remove Charge from User: \"!rc <user> <note>\"`'
         return msg
 
