@@ -16,4 +16,4 @@ View your expenses in this handy web app!
 
 `!ac <user> <amount> <note>` - add a charge to someone
 
-`!rc <user> <amount> <note>` - remove a charge to someone
+`!rc <user> <note>` - remove a charge to someone
