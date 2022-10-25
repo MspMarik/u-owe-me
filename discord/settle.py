@@ -1,11 +1,15 @@
 import yaml
 import ha_webhooks
 
-PATH_TO_YAML = ''
+info = 'INFO_YAML_PATH'
+
+with open(info) as f:
+    token = yaml.load(f, Loader=yaml.FullLoader)
+
+PATH_TO_YAML = token["files"]["charges_yaml"]
 
 with open(PATH_TO_YAML) as f:
     data = yaml.load(f, Loader=yaml.FullLoader)
-    # print(str(data) + "\n\n\n")
 
 
 def check_charges(user):
@@ -55,7 +59,6 @@ def add_charge(user, subuser, amt, note):
         else:
             data["users"][user]['Owed'][i].extend(charge)
             data["users"][i]['Owe'][user].extend(charge)
-            # data["users"][subuser]['Owe'][user].extend(charge)
         ha_webhooks.add(i, amt, user, note)
     with open(PATH_TO_YAML, 'w') as x:
         dt = yaml.dump(data, x)
@@ -95,6 +98,7 @@ def remove_charge(user, subuser, note):
     return f'Charge for the amount of ${amount} for {note} removed from {subuser}'
 
 
+# outstanding balance reminder, runs every day at 9PM using scheduled task
 def notify():
     global data
     for x in data['users']:
@@ -105,4 +109,3 @@ def notify():
                 for j in range(0, len(data["users"][x]['Owe'][i])):
                     words = str(data["users"][x]['Owe'][i][j]).split()
                     ha_webhooks.remind(str(x), words[0], str(i), words[1])
-

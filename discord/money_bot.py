@@ -1,5 +1,12 @@
 import discord
 import responses
+import yaml
+
+
+info = 'INFO_YAML_PATH'
+
+with open(info) as f:
+    data = yaml.load(f, Loader=yaml.FullLoader)
 
 
 # Send messages
@@ -14,7 +21,7 @@ async def send_message(user, message, user_message, is_private):
 
 
 def run_discord_bot():
-    token = 'DISCORD_TOKEN'
+    token = data["accounts"]["accountant"]["discord"]
     client = discord.Client(intents=discord.Intents.all())
 
     @client.event

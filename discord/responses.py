@@ -1,16 +1,17 @@
 import settle
+import yaml
+
+info = 'INFO_YAML_PATH'
+
+with open(info) as f:
+    data = yaml.load(f, Loader=yaml.FullLoader)
 
 
 def handle_response(message, user) -> str:
     u = ''
-    if user == 'MARK_DISCORD_USERNAME':
-        u = 'Mark'
-    elif user == 'ERIC_DISCORD_USERNAME':
-        u = 'Eric'
-    elif user == 'JON_DISCORD_USERNAME':
-        u = 'Jon'
-    elif user == 'ANDREW_DISCORD_USERNAME':
-        u = 'Andrew'
+    for i in data['contact']['discord']:
+        if user == data['contact']['discord'][i]:
+            u = i
 
     p_message = message.lower()
     if p_message == '!hello':
@@ -41,6 +42,6 @@ def handle_response(message, user) -> str:
               'Check Charges: \"!cc\"\n' \
               'Check Owed Balances: \"!co\"\n' \
               'Add Charge to User: \"!ac <user> <amount> <note>\"\n' \
-              'Remove Charge from User: \"!rc <user> <amount> <note>\"`'
+              'Remove Charge from User: \"!rc <user> <note>\"`'
         return msg
 
